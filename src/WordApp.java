@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 
 import java.awt.*;
@@ -17,7 +16,7 @@ public class WordApp {
 	static int noWords=4;
 	static int totalWords;
 
-   	static int frameX=1000;
+   static int frameX=1000;
 	static int frameY=600;
 	static int yLimit=480;
 
@@ -28,6 +27,8 @@ public class WordApp {
 	static 	Score score = new Score();
 
 	static WordPanel w;
+   
+   static JLabel caught ; static JLabel missed ; static JLabel scr;
 	
 	
 	
@@ -64,6 +65,8 @@ public class WordApp {
 	      public void actionPerformed(ActionEvent evt) {
 	          String text = textEntry.getText();
 	          //[snip]
+             Thread thr1=new Thread(new ScoreUpdate(text,words,caught,scr));
+                  thr1.start();
 	          textEntry.setText("");
 	          textEntry.requestFocus();
 	      }
@@ -83,6 +86,8 @@ public class WordApp {
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  //[snip]
+               Thread thr2=new Thread(w);
+                          thr2.start();
 		    	  textEntry.requestFocus();  //return focus to the text entry field
 		      }
 		    });
@@ -94,6 +99,8 @@ public class WordApp {
 			      public void actionPerformed(ActionEvent e)
 			      {
 			    	  //[snip]
+                 Thread thr3 = new Thread(new Halt(words));
+                                  thr3.start();
 			      }
 			    });
 		
@@ -135,12 +142,12 @@ public static String[] getDictFromFile(String filename) {
 	public static void main(String[] args) {
     	
 		//deal with command line arguments
-		totalWords=Integer.parseInt(args[0]);  //total words to fall
-		noWords=Integer.parseInt(args[1]); // total words falling at any point
+		//totalWords=Integer.parseInt(args[0]);  //total words to fall
+		//noWords=Integer.parseInt(args[1]); // total words falling at any point
 		assert(totalWords>=noWords); // this could be done more neatly
-		String[] tmpDict=getDictFromFile(args[2]); //file of words
+		/*String[] tmpDict=getDictFromFile(args[2]); //file of words
 		if (tmpDict!=null)
-			dict= new WordDictionary(tmpDict);
+			dict= new WordDictionary(tmpDict);*/
 		
 		WordRecord.dict=dict; //set the class dictionary for the words.
 		

@@ -1,5 +1,4 @@
 
-
 public class WordRecord {
 	private String text;
 	private  int x;

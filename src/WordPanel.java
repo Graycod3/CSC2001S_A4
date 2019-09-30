@@ -14,6 +14,8 @@ public class WordPanel extends JPanel implements Runnable {
 		private WordRecord[] words;
 		private int noWords;
 		private int maxY;
+      Thread [] T = new Thread[noWords];
+      Thread thr;
 
 		
 		public void paintComponent(Graphics g) {
@@ -38,11 +40,24 @@ public class WordPanel extends JPanel implements Runnable {
 			this.words=words; //will this work?
 			noWords = words.length;
 			done=false;
-			this.maxY=maxY;		
+			this.maxY=maxY;
+        // thread = new Thread(this, "first Thread");
+         //thread.start();
 		}
 		
 		public void run() {
-			//add in code to animate this
+                    
+                    for(int j=0;j<words.length;j++)
+                    {
+                        thr=new Thread(new Threadrop(words[j]));
+                        thr.start();
+                    }
+                    
+                    while(true)
+                    {
+                        repaint();
+
+                    } 
 		}
 
 	}
